@@ -9,7 +9,9 @@ export class ProductManager {
     }
 
     generateUniqueId() {
-        return this.idCounter++;
+        const lastProductId = this.products.length > 0 ? this.products[this.products.length - 1].id : 0;
+        
+        return lastProductId + 1;
     }
 
     async loadProducts() {
@@ -34,8 +36,8 @@ export class ProductManager {
         }
     }
 
-    addProduct({title, description, price, thumbnail, code, stock}) {
-        if (!title || !description || !price || !thumbnail || !code || !stock) {
+    addProduct({title, description, code, price, status = true, stock, category, thumbnails = []}) {
+        if (!title || !description || !code || !price || !stock || !category) {
             throw new Error("Todos los campos son obligatorios.");
         }
         
@@ -51,10 +53,12 @@ export class ProductManager {
             id,
             title,
             description,
-            price,
-            thumbnail,
             code,
-            stock
+            price,
+            status,
+            stock,
+            category,
+            thumbnails,
         };
 
         this.products.push(newProduct);

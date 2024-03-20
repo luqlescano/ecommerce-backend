@@ -37,6 +37,9 @@ export class ProductManager {
     }
 
     addProduct({title, description, code, price, status = true, stock, category, thumbnails = []}) {
+        price = parseInt(price);
+        stock = parseInt(stock);
+        
         if (!title || !description || !code || !price || !stock || !category) {
             throw new Error("Todos los campos son obligatorios.");
         }

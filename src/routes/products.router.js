@@ -7,8 +7,8 @@ const productManager = new ProductManager('./src/utils/products.json');
 productsRouter.get('/', async (req, res) => {
     try {
         const limit = req.query.limit;
-        const prducts = await productManager.getProducts(limit);
-        res.json(prducts);
+        const products = await productManager.getProducts(limit);
+        res.json(products);
     } catch (error) {
         res.status(500).json({  error: error.message });
     }

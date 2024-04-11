@@ -10,7 +10,6 @@ socket.on('productList', function(productList) {
     productList.forEach(product => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <th scope="row">${product.id}</th>
             <td>${product.title}</td>
             <td>${product.description}</td>
             <td>${product.code}</td>
@@ -19,14 +18,14 @@ socket.on('productList', function(productList) {
             <td>${product.stock}</td>
             <td>${product.category}</td>
             <td>
-                <button type="button" class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.id}">
+                <button type="button" class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product._id}">
                     <i class="bi bi-trash"></i>
                 </button>
             </td>
         `;
 
         tr.addEventListener('click', () => {
-            sendProductId(product.id);
+            sendProductId(product._id);
         });
 
         productListElement.appendChild(tr);
@@ -37,7 +36,6 @@ const sendFormData = () => {
     event.preventDefault();
 
     const formData = {
-        id: '',
         title: document.getElementById('title').value,
         description: document.getElementById('description').value,
         code: document.getElementById('code').value,

@@ -1,6 +1,6 @@
-import cartModel from './models/cartModel';
+import cartModel from './models/cartModel.js';
 
-export class CartManagerDB {
+class CartManagerDB {
     async createCart(products = []) {
         const newCart = new cartModel({
             products: [...products],
@@ -48,3 +48,5 @@ export class CartManagerDB {
         }
     }
 }
+
+export { CartManagerDB };

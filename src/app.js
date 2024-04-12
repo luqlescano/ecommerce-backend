@@ -5,6 +5,7 @@ import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import viewsRouter from './routes/views.router.js';
 import realTimeProductsRouter from './routes/realTimeProducts.router.js';
+import chatRouter from './routes/chat.router.js';
 import { Server } from 'socket.io';
 import websocket from './websocket.js';
 import mongoose from 'mongoose';
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', viewsRouter);
 app.use('/realtimeproducts', realTimeProductsRouter);
+app.use('/chat', chatRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 

@@ -1,13 +1,13 @@
 import express from 'express';
-import { productManagerDB } from '../dao/ProductManagerDB.js';
+import { ProductManagerDB } from '../dao/ProductManagerDB.js';
 
 const productsRouter = express.Router();
-const productService = new productManagerDB();
+const ProductService = new ProductManagerDB();
 
 productsRouter.get('/', async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 20;
-        const products = await productService.getProducts(limit);
+        const products = await ProductService.getProducts(limit);
         res.json(products);
     } catch (error) {
         res.status(500).json({  error: error.message });
@@ -17,7 +17,7 @@ productsRouter.get('/', async (req, res) => {
 productsRouter.get('/:pid', async (req, res) => {
     try {
         const productId = req.params.pid;
-        const product = await productService.getProductById(productId);
+        const product = await ProductService.getProductById(productId);
         if (!product) {
             return res.status(404).json({ error: 'Producto no encontrado.' });
         }
@@ -29,7 +29,7 @@ productsRouter.get('/:pid', async (req, res) => {
 
 productsRouter.post('/', async (req, res) => {
     try {
-        const newProduct = await productService.addProduct(req.body);
+        const newProduct = await ProductService.addProduct(req.body);
         res.json(newProduct);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -39,7 +39,7 @@ productsRouter.post('/', async (req, res) => {
 productsRouter.put('/:pid', async (req, res) => {
     try {
         const productId = req.params.pid;
-        const updatedProduct = await productService.updateProduct(
+        const updatedProduct = await ProductService.updateProduct(
             productId,
             req.body,
             { new: true }
@@ -56,7 +56,7 @@ productsRouter.put('/:pid', async (req, res) => {
 productsRouter.delete('/:pid', async (req, res) => {
     try {
         const productId = req.params.pid;
-        await productService.deleteProduct(productId);
+        await ProductService.deleteProduct(productId);
         res.json({ message: 'Producto eliminado correctamente.' });
     } catch (error) {
         res.status(404).json({ error: error.message });

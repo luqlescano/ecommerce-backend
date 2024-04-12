@@ -1,4 +1,5 @@
 import cartModel from './models/cartModel.js';
+import { ProductManagerDB } from './ProductManagerDB.js';
 
 class CartManagerDB {
     async createCart(products = []) {
@@ -32,17 +33,24 @@ class CartManagerDB {
                 throw new Error("Carrito no encontrado.");
             }
 
-            const productoExistente = cart.productos.find(p => p.producto.toString() === productId);
+            const ProductService = new ProductManagerDB();
+            const product = await ProductService.getProductById(productId);
 
-            if (productoExistente) {
-                productoExistente.cantidad += quantity;
+            if (!product) {
+                throw new Error("Producto no encontrado.");
+            }
+
+            const productInCartIndex = cart.products.findIndex(product => product._id.toString() === productId);
+
+            if (productInCartIndex === -1) {
+                cart.products.push({ _id: productId, quantity });
             } else {
-                cart.productos.push({ producto: mongoose.Types.ObjectId(productId), cantidad });
+                cart.products[productInCartIndex].quantity += quantity;
             }
 
             await cart.save();
 
-            return await this.getCartById(cartId);
+            return cart;
         } catch (error) {
             throw new Error(`Error al agregar producto al carrito: ${error.message}`);
         }

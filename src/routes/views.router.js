@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import productModel from '../dao/models/productModel.js';
+import { ProductManagerDB } from '../dao/ProductManagerDB.js';
 
 const viewsRouter = Router();
+const ProductService = new ProductManagerDB();
 
 viewsRouter.get('/', async (req, res) => {
     try {
-        const products = await productModel.find();
+        const products = await ProductService.getProducts();
         const productsData = products.map(product => product.toObject());
         res.render('home', { products: productsData });
     } catch (error) {

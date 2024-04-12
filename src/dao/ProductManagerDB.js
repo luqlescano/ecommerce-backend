@@ -1,6 +1,6 @@
 import productModel from './models/productModel.js';
 
-class productManagerDB {
+class ProductManagerDB {
     async getProducts(limit) {
         try {            
             const products = await productModel.find();
@@ -103,4 +103,4 @@ class productManagerDB {
     }
 }
 
-export { productManagerDB };
+export { ProductManagerDB };

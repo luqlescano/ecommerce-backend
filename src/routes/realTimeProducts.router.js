@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import productModel from '../dao/models/productModel.js';
+import { ProductManagerDB } from '../dao/ProductManagerDB.js';
 
 const realTimeProductsRouter = Router();
+const ProductService = new ProductManagerDB();
 
 realTimeProductsRouter.get('/', async (req, res) => {
     try {
-        const products = await productModel.find();
-        const productsData = products.map(producto => producto.toObject());
+        const products = await ProductService.getProducts();
+        const productsData = products.map(product => product.toObject());
         res.render('realTimeProducts', { products: productsData });
     } catch (error) {
         console.error('Error al obtener el producto:', error);

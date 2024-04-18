@@ -1,15 +1,19 @@
 import productModel from './models/productModel.js';
 
 class ProductManagerDB {
-    async getProducts(limit) {
-        try {            
-            const products = await productModel.find();
+    async getProducts({ page = 1, limit = 10, sort, query } = {}) {
+        try {
+            const options = {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                lean: true,
+                sort: sort ? { price: sort === 'asc' ? 1 : -1 } : undefined,
+                query: query ? { category: query } : {}
+            };
 
-            if (limit) {
-                return products.slice(0, limit);
-            } else {
-                return products;
-            }
+            const result = await productModel.paginate({}, options);
+
+            return result;
         } catch (error) {
             throw new Error("Error al obtener producto/s.");
         }

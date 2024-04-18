@@ -6,12 +6,24 @@ const ProductService = new ProductManagerDB();
 
 productsRouter.get('/', async (req, res) => {
     try {
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 20;
+        const sort = req.query.sort || null;
+        const query = req.query.category || null;
+
+        const products = await ProductService.getProducts({ page, limit, sort, query });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    // VIEJO NO DAR IMPORTANCIA
+    /* try {
         const limit = parseInt(req.query.limit) || 20;
         const products = await ProductService.getProducts(limit);
         res.json(products);
     } catch (error) {
         res.status(500).json({  error: error.message });
-    }
+    } */
 });
 
 productsRouter.get('/:pid', async (req, res) => {

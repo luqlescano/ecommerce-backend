@@ -1,0 +1,70 @@
+    <header>
+        <nav class="navbar bg-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="./products">App</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">App</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="./">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./realtimeproducts">Real Time Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./chat">Chat</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./products">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./carts/6618ba03a010772986b0fae3">Carts</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="p-5">
+            <h2 class="mb-5 text-center">Productos</h2>
+            <div class="row">
+                {{#each products}}
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">{{this.title}}</h3>
+                            <p class="card-text">{{this.description}}</p>
+                            <p class="card-text fw-bold fs-5">${{this.price}}</p>
+                            <a href="{{this._id}}" class="btn btn-primary">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <nav aria-label="..." class="mt-3">
+                <ul class="pagination m-0">
+                    {{#if paginate.hasPrevPage}}
+                    <li class="page-item">
+                        <a class="page-link" href="{{paginate.prevLink}}">Anterior</a>
+                    </li>
+                    {{/if}}
+                    {{#if paginate.hasNextPage}}
+                    <li class="page-item">
+                        <a class="page-link" href="{{paginate.nextLink}}">Siguiente</a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </section>
+    </main>

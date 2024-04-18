@@ -1,0 +1,25 @@
+    <main class="container">
+        <section class="p-5">
+            <h2 class="mb-5 text-center">Carrito</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                        <tr>
+                            <td>{{this.title}}</td>
+                            <td>${{this.price}}</td>
+                            <td>{{this.quantity}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>

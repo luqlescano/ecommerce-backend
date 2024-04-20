@@ -36,4 +36,48 @@ cartsRouter.post('/:cid/product/:pid', async (req, res) => {
     }  
 });
 
+cartsRouter.delete('/:cid/products/:pid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const productId = req.params.pid;
+        const updatedCart = await CartService.deleteProductFromCart(cartId, productId);
+        res.json(updatedCart);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }  
+});
+
+cartsRouter.put('/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const products = req.body.products || [];
+        const updatedCart = await CartService.updateCart(cartId, products);
+        res.json(updatedCart);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+cartsRouter.put('/:cid/products/:pid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const productId = req.params.pid;
+        const quantity = req.body.quantity;
+        const updatedCart = await CartService.updateProductQuantityInCart(cartId, productId, quantity);
+        res.json(updatedCart);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+cartsRouter.delete('/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const updatedCart = await CartService.clearCart(cartId);
+        res.json(updatedCart);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 export default cartsRouter;

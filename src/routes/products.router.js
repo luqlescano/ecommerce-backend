@@ -7,7 +7,7 @@ const ProductService = new ProductManagerDB();
 productsRouter.get('/', async (req, res) => {
     try {
         const page = req.query.page || 1;
-        const limit = req.query.limit || 20;
+        const limit = req.query.limit || 10;
         const sort = req.query.sort || null;
         const query = req.query.category || null;
 

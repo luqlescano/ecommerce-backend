@@ -13,12 +13,12 @@ class CartManagerDB {
 
     async getCartById(cartId) {
         try {
-            const cart = await cartModel.findById(cartId).populate('products');
-    
+            const cart = await cartModel.findById(cartId).populate('products.product');
+            
             if (!cart) {
                 throw new Error("Carrito no encontrado.");
             }
-    
+            
             return { products: cart.products };
         } catch (error) {
             throw new Error(`Error al obtener el carrito con ID ${cartId}.`);

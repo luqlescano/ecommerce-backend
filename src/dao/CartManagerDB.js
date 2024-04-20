@@ -3,12 +3,25 @@ import { ProductManagerDB } from './ProductManagerDB.js';
 
 class CartManagerDB {
     async createCart(products = []) {
-        const newCart = new cartModel({
-            products: [...products],
-        });
-
-        const saveCart = await newCart.save();
-        return saveCart;
+        try {
+            if (products.length > 0) {
+                const newCart = new cartModel({
+                    products: [...products],
+                });
+    
+                const saveCart = await newCart.save();
+                return saveCart;
+            } else {
+                const newCart = new cartModel({
+                    products: [],
+                });
+    
+                const saveCart = await newCart.save();
+                return saveCart;
+            }
+        } catch (error) {
+            throw new Error(`Error al crear el carrito: ${error.message}`);
+        }
     }
 
     async getCartById(cartId) {

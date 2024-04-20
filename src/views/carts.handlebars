@@ -11,12 +11,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each products}}
-                        <tr>
-                            <td>{{this.title}}</td>
-                            <td>${{this.price}}</td>
-                            <td>{{this.quantity}}</td>
-                        </tr>
+                        {{#each cart.products}}
+                            <tr>
+                                <td>{{this.title}}</td>
+                                <td>${{this.price}}</td>
+                                <td>{{this.quantity}}</td>
+                            </tr>
                         {{/each}}
                     </tbody>
                 </table>

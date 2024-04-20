@@ -38,38 +38,9 @@ viewsRouter.get('/products', async (req, res) => {
 
 viewsRouter.get('/carts/:cid', async (req, res) => {
     try {
-        const cartId = req.params.cid; 
-        const cart = await CartService.getCartById(cartId); // Obtener el carrito usando el ID
-        
-        // Verificar si el carrito existe
-        if (!cart) {
-            throw new Error("Carrito no encontrado.");
-        }
-        
-        // Crear un arreglo para almacenar los productos con detalles extendidos
-        const productsWithDetails = [];
-        
-        // Iterar sobre los productos en el carrito
-        for (const item of cart.products) {
-            // Verificar si el producto es nulo o indefinido
-            if (!item.product) {
-                continue; // Saltar a la siguiente iteración si el producto es nulo o indefinido
-            }
-            
-            // Obtener los detalles del producto relacionado usando la referencia ObjectId
-            const product = await ProductService.getProductById(item.product);
-            if (product) {
-                // Agregar el producto con los detalles extendidos al arreglo
-                productsWithDetails.push({
-                    title: product.title,
-                    price: product.price,
-                    quantity: item.quantity
-                });
-            }
-        }
-        
-        // Renderizar la plantilla con el carrito y los productos con detalles extendidos
-        res.render('carts', { cart: cart, products: productsWithDetails });
+        const cartId = req.params.cid;
+        const cart = await CartService.getCartById(cartId);
+        res.render('carts', { cart });
     } catch (error) {
         console.error('Error al obtener el carrito:', error);
         res.status(500).send('Error al obtener el carrito.');

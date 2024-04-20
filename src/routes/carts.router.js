@@ -4,6 +4,8 @@ import { CartManagerDB } from '../dao/CartManagerDB.js';
 const cartsRouter = express.Router();
 const CartService = new CartManagerDB();
 
+cartsRouter.use(express.json());
+
 cartsRouter.post('/', async (req, res) => {
     try {
         const products = req.body.products || [];

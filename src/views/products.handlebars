@@ -29,6 +29,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="./carts/6618ba03a010772986b0fae3">Carts</a>
                             </li>
+                            <hr>
+                            <p class="m-0 p-0">{{user.email}}</p>
+                            <hr>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Cerrar sesión</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -37,6 +43,7 @@
     </header>
     <main class="container">
         <section class="p-5">
+            <h4 class="mb-5">Bienvenido {{user.first_name}} {{user.last_name}}</h4>
             <h2 class="mb-5 text-center">Productos</h2>
             <div class="row">
                 {{#each products}}

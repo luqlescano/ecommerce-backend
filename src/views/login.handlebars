@@ -1,0 +1,27 @@
+    <main class="container">
+        <section class="row justify-content-center p-5">
+            <h2 class="mb-5 text-center">Iniciar sesión</h2>
+            <div class="col-md-12 col-lg-6">
+                <form method="post" action="/api/sessions/login">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Clave</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                </form>
+                <div class="mt-3">
+                    <p>¿Aún no tenes una cuenta? <a href="/register" target="_self">Regístrate!</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {{#if failLogin}}
+        <script type="text/javascript">
+            alert('Login Failed!');
+        </script>
+    {{/if}}

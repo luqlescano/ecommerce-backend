@@ -13,6 +13,8 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import mongoStore from 'connect-mongo';
 import { auth } from './middlewares/auth.js';
+import passport from 'passport';
+import initializePassport from './config/passportConfig.js';
 
 const app = express();
 
@@ -43,6 +45,10 @@ app.use(session(
         saveUninitialized: true
     }
 ));
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', viewsRouter);
 app.use('/realtimeproducts', auth, realTimeProductsRouter);

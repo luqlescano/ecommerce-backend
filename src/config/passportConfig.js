@@ -1,6 +1,6 @@
 import passport from 'passport';
 import GitHubStrategy from 'passport-github2';
-import userModel from '../dao/models/userModel';
+import userModel from '../dao/models/userModel.js';
 
 const initializePassport = () => {
     const CLIENT_ID = "Iv1.85647a080478e0db";
